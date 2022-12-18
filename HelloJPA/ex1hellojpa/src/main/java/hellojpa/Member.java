@@ -2,8 +2,10 @@ package hellojpa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity // JPA사용하는 엔티티로 인식
+@Entity // JPA사용하는 엔티티로 인식]
+//@Table(name = "MEMBER")
 public class Member {
 
     @Id
