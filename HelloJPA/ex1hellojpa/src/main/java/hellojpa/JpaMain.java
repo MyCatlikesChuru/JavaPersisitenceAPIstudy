@@ -36,6 +36,13 @@ public class JpaMain {
 //            System.out.println("findMember.id = " + findMember.getId());
 //            System.out.println("findMember.name = " + findMember.getName());
 //
+
+            // 비영속 상태
+//            Member member = new Member();
+//            member.setId(100L);
+//            member.setName("HelloJPA");
+
+            // 영속 상태
 //            em.persist(findMember);
             tx.commit();
         } catch (Exception e){
