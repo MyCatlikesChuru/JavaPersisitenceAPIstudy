@@ -36,7 +36,7 @@ public class JpaMain {
 //            System.out.println("findMember.id = " + findMember.getId());
 //            System.out.println("findMember.name = " + findMember.getName());
 //
-
+//            em.flush();
             // 비영속 상태
 //            Member member = new Member();
 //            member.setId(100L);
