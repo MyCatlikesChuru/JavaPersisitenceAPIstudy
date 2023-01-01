@@ -18,20 +18,37 @@ public class JpaMain {
 
 
         try {
+            Member member1 = new Member();
+            member1.setUsername("A");
+//            Member member2 = new Member();
+//            member1.setUsername("B");
+//            Member member3 = new Member();
+//            member1.setUsername("C");
+
+            System.out.println("===============");
+            em.persist(member1); // 1,51
+//            em.persist(member2); // memory
+//            em.persist(member3); // memory
+
+            System.out.println("member1 = " + member1.getId());
+//            System.out.println("member2 = " + member2.getId());
+//            System.out.println("member3 = " + member3.getId());
+            System.out.println("===============");
+
 
 //            Member findMember = em.find(Member.class, 1L);
 //            em.remove(findMember); // 삭제
 
 //            findMember.setName("HelloJPA"); // update가 되어짐
 
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
-
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
+//            List<Member> result = em.createQuery("select m from Member as m", Member.class)
+//                    .setFirstResult(5)
+//                    .setMaxResults(8)
+//                    .getResultList();
+//
+//            for (Member member : result) {
+//                System.out.println("member.name = " + member.getName());
+//            }
 
 //            System.out.println("findMember.id = " + findMember.getId());
 //            System.out.println("findMember.name = " + findMember.getName());
