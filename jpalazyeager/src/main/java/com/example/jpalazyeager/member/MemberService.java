@@ -39,6 +39,11 @@ public class MemberService {
         Optional<Member> memberId = memberRepository.findById(1L);
         System.out.println("=========== findMember 쿼리 끝 ============");
 
+        System.out.println("=========== findMember 영속성 컨텍스트 확인 ============");
+        memberRepository.findById(1L);
+        System.out.println("=========== findMember 영속성 컨텍스트 끝 ============");
+
+
         System.out.println("=========== findShow 쿼리 시작 ============");
         Optional<Show> showId = showRepository.findById(1L);
         System.out.println("=========== findShow 쿼리 끝 ============");
