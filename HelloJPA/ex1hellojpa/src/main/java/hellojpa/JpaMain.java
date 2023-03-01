@@ -19,23 +19,26 @@ public class JpaMain {
         try {
             Team team = new Team();
             team.setName("TeamA");
+//            team.getMembers().add(member);
             em.persist(team); // 영속상태가 되면 PK값이 셋팅되고 영속됨
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeam(team);
+//            member.setTeam(team); // 연관관계의 주인 쪽에 넣어줘야함
             em.persist(member);
 
-            em.flush();;
+            team.addMember(member);
+
+            em.flush();
             em.clear();
 
             System.out.println("==================");
 
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
-            for (Member m : members) {
-                System.out.println("m = " + m.getUsername());
-            }
+//            Member findMember = em.find(Member.class, member.getId());
+//            List<Member> members = findMember.getTeam().getMembers();
+//            for (Member m : members) {
+//                System.out.println("m = " + m.getUsername());
+//            }
 
             tx.commit();
         } catch (Exception e){
