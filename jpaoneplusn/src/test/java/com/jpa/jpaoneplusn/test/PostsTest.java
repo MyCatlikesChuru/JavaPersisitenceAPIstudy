@@ -62,7 +62,7 @@ public class PostsTest {
         em.clear();
 
         System.out.println("============= 쿼리 시작 =============");
-        List<Posts> findPosts = postsRepository.findAll();
+        List<Posts> findPosts = postsRepository.findAll_noFetchJoin();
 
         System.out.println("============= PostsTag 가져오기 =============");
         List<PostsTag> findPostsTag = findPosts.get(0).getPostsTags();
@@ -82,7 +82,7 @@ public class PostsTest {
         em.clear();
 
         System.out.println("============= 쿼리 시작 =============");
-        List<Posts> findPosts = postsRepository.findAll_fetchJoin();
+        List<Posts> findPosts = postsRepository.findAll_useFetchJoin();
 
         System.out.println("============= PostsTag 가져오기 =============");
         List<PostsTag> findPostsTag = findPosts.get(0).getPostsTags();

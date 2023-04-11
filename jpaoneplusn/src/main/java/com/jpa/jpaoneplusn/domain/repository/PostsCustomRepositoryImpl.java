@@ -22,7 +22,7 @@ public class PostsCustomRepositoryImpl implements PostsCustomRepository{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Posts> findAll() {
+    public List<Posts> findAll_noFetchJoin() {
         return queryFactory
                 .selectFrom(posts)
                 .leftJoin(posts.postsTags, postsTag)
@@ -32,7 +32,7 @@ public class PostsCustomRepositoryImpl implements PostsCustomRepository{
     }
 
     @Override
-    public List<Posts> findAll_fetchJoin() {
+    public List<Posts> findAll_useFetchJoin() {
         return queryFactory
                 .selectFrom(posts)
                 .leftJoin(posts.postsTags, postsTag).fetchJoin()

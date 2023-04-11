@@ -17,7 +17,7 @@ public class Posts {
 
     private String title;
 
-    @OneToMany(mappedBy = "posts", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // LAZY, EAGER 변경후 쿼리 시점변경
     private List<PostsTag> postsTags = new ArrayList<>();
 
     @Builder

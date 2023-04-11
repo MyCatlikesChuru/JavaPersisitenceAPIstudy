@@ -11,8 +11,8 @@ import static com.jpa.jpaoneplusn.domain.entity.QPosts.posts;
 
 public interface PostsCustomRepository {
 
-    List<Posts> findAll();
+    List<Posts> findAll_noFetchJoin();
 
-    List<Posts> findAll_fetchJoin();
+    List<Posts> findAll_useFetchJoin();
 
 }
