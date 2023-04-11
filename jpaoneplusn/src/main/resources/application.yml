@@ -1,8 +1,12 @@
 spring:
   jpa:
-    show-sql: true
+    #    defer-datasource-initialization: true # 애플리케이션 실행시 파일 설정 data.sql
     hibernate:
       ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
     defer-datasource-initialization: true
     database-platform: org.hibernate.dialect.H2Dialect
   datasource:

@@ -1,9 +1,6 @@
 package com.jpa.jpaoneplusn.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +9,21 @@ import javax.persistence.Id;
 
 @Getter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class posts {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+
+    private String type;
+
+    @Builder
+    public Tag(Long id, String name, String type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
 }
