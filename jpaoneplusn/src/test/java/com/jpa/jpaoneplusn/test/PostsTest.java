@@ -65,12 +65,20 @@ public class PostsTest {
         List<Posts> findPosts = postsRepository.findAll_noFetchJoin();
 
         System.out.println("============= PostsTag 가져오기 =============");
-        List<PostsTag> findPostsTag = findPosts.get(0).getPostsTags();
-        System.out.println("PostsTag id = " + findPostsTag.get(0).getId());
+        // post 2개를 가져왔지만 Select 쿼리는 한개만 나감.
+        // 하지만 postTag를 조회시 조회할때마다 쿼리가 나가는 N+1문제 발생
+        for (Posts findPost : findPosts) {
+            for (PostsTag postsTag : findPost.getPostsTags()) {
+                System.out.println("PostsTag id = " + postsTag.getId());
+            }
+        }
 
         System.out.println("============= Tag 가져오기 =============");
-        Tag tag = findPostsTag.get(0).getTag();
-        System.out.println("Tag Name = " + tag.getName());
+        for (Posts findPost : findPosts) {
+            for (PostsTag postsTag : findPost.getPostsTags()) {
+                System.out.println("Tag Name = " + postsTag.getTag().getName());
+            }
+        }
     }
 
     @Test
@@ -85,12 +93,18 @@ public class PostsTest {
         List<Posts> findPosts = postsRepository.findAll_useFetchJoin();
 
         System.out.println("============= PostsTag 가져오기 =============");
-        List<PostsTag> findPostsTag = findPosts.get(0).getPostsTags();
-        System.out.println("PostsTag id = " + findPostsTag.get(0).getId());
+        for (Posts findPost : findPosts) {
+            for (PostsTag postsTag : findPost.getPostsTags()) {
+                System.out.println("PostsTag id = " + postsTag.getId());
+            }
+        }
 
         System.out.println("============= Tag 가져오기 =============");
-        Tag tag = findPostsTag.get(0).getTag();
-        System.out.println("Tag Name = " + tag.getName());
+        for (Posts findPost : findPosts) {
+            for (PostsTag postsTag : findPost.getPostsTags()) {
+                System.out.println("Tag Name = " + postsTag.getTag().getName());
+            }
+        }
     }
 
 }
