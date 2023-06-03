@@ -36,20 +36,25 @@ public class PostsTest {
     @Autowired
     TagRepository tagRepository;
 
+    private static Long POST_ID;
+
 
     @BeforeEach
     public void setUp() {
         queryFactory = new JPAQueryFactory(em);
+        Posts post = Posts.builder().title("계절별 강수량 조사 게시글 입니다.").build();
+        Posts savedPost = postsRepository.save(post);
+        POST_ID = savedPost.getId();
 
+        // 1개의 게시글, 4개의 태그
+        // 중간테이블 postTag = 1개의 게시글에 각각 태그를 연결해놓은 상황
         for (long i = 1; i <= 4; i++) {
-            Posts post = Posts.builder().title("제목 "+i).build();
-            Tag tag = Tag.builder().name("태그 "+i).type("타입 "+i).build();
+            String[] seasons = new String[]{"봄","여름","가을","겨울"};
+            String season = seasons[(int)(i - 1L)];
+            Tag tag = Tag.builder().name(season).type("계절").build();
             PostsTag postTag = PostsTag.builder().tag(tag).posts(post).build();
-            post.addPostsTag(postTag);
+            tag.addPostsTag(postTag);
             tagRepository.save(tag);
-            postsRepository.save(post);
-//            em.persist(tag);
-//            em.persist(post);
         }
     }
 
@@ -62,22 +67,18 @@ public class PostsTest {
         em.clear();
 
         System.out.println("============= 쿼리 시작 =============");
-        List<Posts> findPosts = postsRepository.findAll_noFetchJoin();
+        Posts findPost = postsRepository.findPost_noFetchJoin(POST_ID);
+
 
         System.out.println("============= PostsTag 가져오기 =============");
-        // post 2개를 가져왔지만 Select 쿼리는 한개만 나감.
-        // 하지만 postTag를 조회시 조회할때마다 쿼리가 나가는 N+1문제 발생
-        for (Posts findPost : findPosts) {
-            for (PostsTag postsTag : findPost.getPostsTags()) {
-                System.out.println("PostsTag id = " + postsTag.getId());
-            }
+        for (PostsTag postsTag : findPost.getPostsTags()) {
+            System.out.println("PostsTag id = " + postsTag.getId());
         }
 
+        // Tag정보를 가져올때 N+1문제가 발생하는 모습!!
         System.out.println("============= Tag 가져오기 =============");
-        for (Posts findPost : findPosts) {
-            for (PostsTag postsTag : findPost.getPostsTags()) {
-                System.out.println("Tag Name = " + postsTag.getTag().getName());
-            }
+        for (PostsTag postsTag : findPost.getPostsTags()) {
+            System.out.println("Tag Name = " + postsTag.getTag().getName());
         }
     }
 
@@ -90,20 +91,16 @@ public class PostsTest {
         em.clear();
 
         System.out.println("============= 쿼리 시작 =============");
-        List<Posts> findPosts = postsRepository.findAll_useFetchJoin();
+        Posts findPost = postsRepository.findPost_useFetchJoin(POST_ID);
 
         System.out.println("============= PostsTag 가져오기 =============");
-        for (Posts findPost : findPosts) {
-            for (PostsTag postsTag : findPost.getPostsTags()) {
-                System.out.println("PostsTag id = " + postsTag.getId());
-            }
+        for (PostsTag postsTag : findPost.getPostsTags()) {
+            System.out.println("PostsTag id = " + postsTag.getId());
         }
 
         System.out.println("============= Tag 가져오기 =============");
-        for (Posts findPost : findPosts) {
-            for (PostsTag postsTag : findPost.getPostsTags()) {
-                System.out.println("Tag Name = " + postsTag.getTag().getName());
-            }
+        for (PostsTag postsTag : findPost.getPostsTags()) {
+            System.out.println("Tag Name = " + postsTag.getTag().getName());
         }
     }
 

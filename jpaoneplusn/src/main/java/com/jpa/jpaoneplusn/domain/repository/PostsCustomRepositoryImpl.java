@@ -22,22 +22,22 @@ public class PostsCustomRepositoryImpl implements PostsCustomRepository{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Posts> findAll_noFetchJoin() {
+    public Posts findPost_noFetchJoin(Long id) {
         return queryFactory
                 .selectFrom(posts)
                 .leftJoin(posts.postsTags, postsTag)
                 .leftJoin(postsTag.tag, tag)
-                .where(posts.id.eq(postsTag.id))
-                .fetch();
+                .where(posts.id.eq(id))
+                .fetchOne();
     }
 
     @Override
-    public List<Posts> findAll_useFetchJoin() {
+    public Posts findPost_useFetchJoin(Long id) {
         return queryFactory
                 .selectFrom(posts)
                 .leftJoin(posts.postsTags, postsTag).fetchJoin()
                 .leftJoin(postsTag.tag, tag).fetchJoin()
-                .where(posts.id.eq(postsTag.id))
-                .fetch();
+                .where(posts.id.eq(id))
+                .fetchOne();
     }
 }
