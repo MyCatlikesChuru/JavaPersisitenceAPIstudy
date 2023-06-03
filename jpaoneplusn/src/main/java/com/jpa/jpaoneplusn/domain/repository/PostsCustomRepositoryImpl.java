@@ -40,4 +40,22 @@ public class PostsCustomRepositoryImpl implements PostsCustomRepository{
                 .where(posts.id.eq(id))
                 .fetchOne();
     }
+
+    @Override
+    public List<Posts> findAllPost_noFetchJoin() {
+        return queryFactory
+                .selectFrom(posts)
+//                .leftJoin(posts.postsTags, postsTag)
+//                .leftJoin(postsTag.tag, tag)
+                .fetch();
+    }
+
+    @Override
+    public List<Posts> findAllPost_useFetchJoin() {
+        return queryFactory
+                .selectFrom(posts)
+                .leftJoin(posts.postsTags, postsTag).fetchJoin()
+                .leftJoin(postsTag.tag, tag).fetchJoin()
+                .fetch();
+    }
 }

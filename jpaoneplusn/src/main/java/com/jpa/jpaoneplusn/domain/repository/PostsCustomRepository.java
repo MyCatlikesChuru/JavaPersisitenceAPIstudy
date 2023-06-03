@@ -15,4 +15,7 @@ public interface PostsCustomRepository {
 
     Posts findPost_useFetchJoin(Long id);
 
+    List<Posts> findAllPost_noFetchJoin();
+
+    List<Posts> findAllPost_useFetchJoin();
 }
