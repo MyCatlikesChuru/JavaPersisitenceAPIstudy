@@ -45,8 +45,6 @@ public class PostsCustomRepositoryImpl implements PostsCustomRepository{
     public List<Posts> findAllPost_noFetchJoin() {
         return queryFactory
                 .selectFrom(posts)
-//                .leftJoin(posts.postsTags, postsTag)
-//                .leftJoin(postsTag.tag, tag)
                 .fetch();
     }
 
